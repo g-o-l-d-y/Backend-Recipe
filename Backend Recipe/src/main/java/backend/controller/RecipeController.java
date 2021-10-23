@@ -35,12 +35,12 @@ public class RecipeController {
 	}
 	
 	@GetMapping("/{id}")
-	public JSONObject getById(@PathVariable int id) throws JSONException
+	public String getById(@PathVariable int id) throws JSONException
 	{
 		Recipe recipe = recipeRepo.findById(id).get();
 		JSONObject json = new JSONObject(recipe); // Convert text to object
 		System.out.println(json.toString(4)); // Print it with specified indentation
-		return json;
+		return json.toString(4);
 	}
 	
 	@GetMapping("/{id}/show")
