@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import backend.model.Recipe;
 import backend.repo.RecipeRepo;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 @RestController
 public class RecipeController {
 	
@@ -32,9 +35,12 @@ public class RecipeController {
 	}
 	
 	@GetMapping("/{id}")
-	public Recipe getById(@PathVariable int id)
+	public JSONObject getById(@PathVariable int id) throws JSONException
 	{
-		return recipeRepo.findById(id).get();
+		Recipe recipe = recipeRepo.findById(id).get();
+		JSONObject json = new JSONObject(recipe); // Convert text to object
+		System.out.println(json.toString(4)); // Print it with specified indentation
+		return json;
 	}
 	
 	@GetMapping("/{id}/show")
